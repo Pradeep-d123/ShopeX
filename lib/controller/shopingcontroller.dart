@@ -33,27 +33,3 @@ class ProductController extends GetxController {
   }
 }
 
-class ProductLikeController extends GetxController {
-  RxBool isFavorite = false.obs;
-  final CartCountController cartCountController =
-      Get.find<CartCountController>();
-  toggleLike(int item) {
-    isFavorite.value = !isFavorite.value;
-    if (isFavorite.value) {
-      cartCountController.addCart(item);
-    } else {
-      cartCountController.removecart(item);
-    }
-  }
-}
-
-class CartCountController extends GetxController {
-  RxList<int> carts = <int>[].obs;
-  addCart(int item) {
-    carts.add(item);
-  }
-
-  removecart(int item) {
-    carts.remove(item);
-  }
-}

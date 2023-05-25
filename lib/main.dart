@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_using_getx/shopingcontroller.dart';
+import 'package:flutter_application_using_getx/cartscreen.dart';
+import 'package:flutter_application_using_getx/controller/shopingcontroller.dart';
 import 'package:flutter_application_using_getx/singleproduct.dart';
 
 import 'package:get/get.dart';
+
+import 'controller/cart_controller.dart';
 
 void main() {
   runApp(Myapp());
@@ -21,7 +24,6 @@ class Home extends StatelessWidget {
   Home({super.key});
   ProductController productController = Get.put(ProductController());
   CartCountController cartCountController = Get.put(CartCountController());
-  
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +33,26 @@ class Home extends StatelessWidget {
         actions: [
           Stack(
             children: [
-              Center(child: Icon(Icons.shopping_cart)),
+              Center(
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CartScreen();
+                        }));
+                      },
+                      child: Icon(Icons.shopping_cart))),
               Positioned(
-                left: 11,
-                top: 3,
-                child: Obx(
-                  () =>
-                     CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Center(
-                        child: Text(
-                      cartCountController.carts.length.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold)
-                    )),
-                  )
-                )
-              )
+                  left: 11,
+                  top: 3,
+                  child: Obx(() => CircleAvatar(
+                        backgroundColor: Colors.red,
+                        radius: 8,
+                        child: Center(
+                            child: Text(
+                                cartCountController.carts.length.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                      )))
             ],
           )
         ],
@@ -81,4 +86,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-
